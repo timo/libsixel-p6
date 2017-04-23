@@ -184,22 +184,6 @@ enum loopControl is export (
 );
 ## Structures
 
-
-# == <builtin> ==
-
-class __va_list_tag is repr('CStruct') is export {
-	has uint32                        $.gp_offset; # unsigned int gp_offset
-	has uint32                        $.fp_offset; # unsigned int fp_offset
-	has Pointer                       $.overflow_arg_area; # void* overflow_arg_area
-	has Pointer                       $.reg_save_area; # void* reg_save_area
-}
-class __NSConstantString_tag is repr('CStruct') is export {
-	has Pointer[int32]                $.isa; # const int* isa
-	has int32                         $.flags; # int flags
-	has Str                           $.str; # const char* str
-	has long                          $.length; # long int length
-}
-
 # == /home/timo/perl6/ecosystem/libsixel/include/sixel.h ==
 
 class sixel_allocator is repr('CPointer') is export {
