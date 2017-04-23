@@ -224,11 +224,11 @@ class sixel_decoder is repr('CPointer') is export {
 #/* create allocator object */
 #SIXELSTATUS
 #sixel_allocator_new(
-sub sixel_allocator_new(sixel_allocator      $ppallocator # Typedef<sixel_allocator_t>->|sixel_allocator|**
-                       ,&fn_malloc ( --> Pointer) # Typedef<sixel_malloc_t>->|F:void* ( )*|
-                       ,&fn_calloc ( --> Pointer) # Typedef<sixel_calloc_t>->|F:void* ( )*|
-                       ,&fn_realloc ( --> Pointer) # Typedef<sixel_realloc_t>->|F:void* ( )*|
-                       ,&fn_free () # Typedef<sixel_free_t>->|F:void ( )*|
+sub sixel_allocator_new(sixel_allocator      $ppallocator is rw # Typedef<sixel_allocator_t>->|sixel_allocator|**
+                       ,&fn_malloc ( size_t           --> Pointer) # Typedef<sixel_malloc_t>->|F:void* ( )*|
+                       ,&fn_calloc ( size_t,   size_t --> Pointer) # Typedef<sixel_calloc_t>->|F:void* ( )*|
+                       ,&fn_realloc ( Pointer, size_t --> Pointer) # Typedef<sixel_realloc_t>->|F:void* ( )*|
+                       ,&fn_free ( Pointer ) # Typedef<sixel_free_t>->|F:void ( )*|
                         ) is native(LIB) returns SIXELSTATUS is export { * }
 
 #-From /home/timo/perl6/ecosystem/libsixel/include/sixel.h:501
