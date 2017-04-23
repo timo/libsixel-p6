@@ -289,13 +289,6 @@ sub sixel_output_new(sixel_output         $output # Typedef<sixel_output_t>->|si
                     ,sixel_allocator               $allocator # Typedef<sixel_allocator_t>->|sixel_allocator|*
                      ) is native(LIB) returns SIXELSTATUS is export { * }
 
-#-From /home/timo/perl6/ecosystem/libsixel/include/sixel.h:574
-#/* deprecated: create an output object */
-#SIXELAPI __attribute__((deprecated)) sixel_output_t *
-#sixel_output_create(
-sub sixel_output_create(&fn_write ( --> int32) # Typedef<sixel_write_function>->|F:int ( )*|
-                       ,Pointer                       $priv # void*
-                        ) is native(LIB) returns sixel_output is export { * }
 
 #-From /home/timo/perl6/ecosystem/libsixel/include/sixel.h:580
 #                                               3rd argument of fn_write */
@@ -383,13 +376,6 @@ sub sixel_dither_new(sixel_dither         $ppdither # Typedef<sixel_dither_t>->|
                     ,sixel_allocator               $allocator # Typedef<sixel_allocator_t>->|sixel_allocator|*
                      ) is native(LIB) returns SIXELSTATUS is export { * }
 
-#-From /home/timo/perl6/ecosystem/libsixel/include/sixel.h:662
-#/* create dither context object */
-#SIXELAPI __attribute__((deprecated)) sixel_dither_t *
-#sixel_dither_create(int /* in */ ncolors); /* number of colors */
-sub sixel_dither_create(int32 $ncolors # int
-                        ) is native(LIB) returns sixel_dither is export { * }
-
 #-From /home/timo/perl6/ecosystem/libsixel/include/sixel.h:666
 #/* get built-in dither context object */
 #SIXELAPI sixel_dither_t *
@@ -453,12 +439,6 @@ sub sixel_dither_get_num_of_palette_colors(sixel_dither $dither # Typedef<sixel_
 #sixel_dither_get_num_of_histogram_colors(
 sub sixel_dither_get_num_of_histogram_colors(sixel_dither $dither # Typedef<sixel_dither_t>->|sixel_dither|*
                                              ) is native(LIB) returns int32 is export { * }
-
-#-From /home/timo/perl6/ecosystem/libsixel/include/sixel.h:709
-#SIXELAPI __attribute__((deprecated)) int /* typoed! remains for compatibility. */
-#sixel_dither_get_num_of_histgram_colors(
-sub sixel_dither_get_num_of_histgram_colors(sixel_dither $dither # Typedef<sixel_dither_t>->|sixel_dither|*
-                                            ) is native(LIB) returns int32 is export { * }
 
 #-From /home/timo/perl6/ecosystem/libsixel/include/sixel.h:714
 #/* get palette */
@@ -543,18 +523,6 @@ sub sixel_decode_raw(Pointer[uint8]                $p # unsigned char*
                     ,sixel_allocator               $allocator # Typedef<sixel_allocator_t>->|sixel_allocator|*
                      ) is native(LIB) returns SIXELSTATUS is export { * }
 
-#-From /home/timo/perl6/ecosystem/libsixel/include/sixel.h:788
-#SIXELAPI __attribute__((deprecated)) SIXELSTATUS
-#sixel_decode(
-sub sixel_decode(Pointer[uint8]                $sixels # unsigned char*
-                ,int32                         $size # int
-                ,Pointer[Pointer[uint8]]       $pixels # unsigned char**
-                ,Pointer[int32]                $pwidth # int*
-                ,Pointer[int32]                $pheight # int*
-                ,Pointer[Pointer[uint8]]       $palette # unsigned char**
-                ,Pointer[int32]                $ncolors # int*
-                ,&fn_malloc ( --> Pointer) # Typedef<sixel_allocator_function>->|F:void* ( )*|
-                 ) is native(LIB) returns SIXELSTATUS is export { * }
 
 #-From /home/timo/perl6/ecosystem/libsixel/include/sixel.h:809
 #SIXELAPI void
@@ -619,11 +587,6 @@ sub sixel_frame_new(sixel_frame          $ppframe # Typedef<sixel_frame_t>->|six
 
 #-From /home/timo/perl6/ecosystem/libsixel/include/sixel.h:900
 #                                                   default allocator */
-#/* deprecated version of sixel_frame_new() */
-#SIXELAPI __attribute__((deprecated)) sixel_frame_t *
-#sixel_frame_create(void);
-sub sixel_frame_create(
-                       ) is native(LIB) returns sixel_frame is export { * }
 
 #-From /home/timo/perl6/ecosystem/libsixel/include/sixel.h:904
 #/* increase reference count of frame object (thread-unsafe) */
@@ -796,13 +759,6 @@ sub sixel_encoder_new(sixel_encoder        $ppencoder # Typedef<sixel_encoder_t>
                      ,sixel_allocator               $allocator # Typedef<sixel_allocator_t>->|sixel_allocator|*
                       ) is native(LIB) returns SIXELSTATUS is export { * }
 
-#-From /home/timo/perl6/ecosystem/libsixel/include/sixel.h:1043
-#/* deprecated version of sixel_decoder_new() */
-#SIXELAPI __attribute__((deprecated)) sixel_encoder_t *
-#sixel_encoder_create(void);
-sub sixel_encoder_create(
-                         ) is native(LIB) returns sixel_encoder is export { * }
-
 #-From /home/timo/perl6/ecosystem/libsixel/include/sixel.h:1047
 #/* increase reference count of encoder object (thread-unsafe) */
 #SIXELAPI void
@@ -864,12 +820,6 @@ sub sixel_decoder_new(sixel_decoder        $ppdecoder # Typedef<sixel_decoder_t>
                      ,sixel_allocator               $allocator # Typedef<sixel_allocator_t>->|sixel_allocator|*
                       ) is native(LIB) returns SIXELSTATUS is export { * }
 
-#-From /home/timo/perl6/ecosystem/libsixel/include/sixel.h:1108
-#/* deprecated version of sixel_decoder_new() */
-#SIXELAPI __attribute__((deprecated)) sixel_decoder_t *
-#sixel_decoder_create(void);
-sub sixel_decoder_create(
-                         ) is native(LIB) returns sixel_decoder is export { * }
 
 #-From /home/timo/perl6/ecosystem/libsixel/include/sixel.h:1112
 #/* increase reference count of decoder object (thread-unsafe) */
