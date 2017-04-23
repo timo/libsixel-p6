@@ -53,7 +53,7 @@ enum optionFLag is export (
     OF_INVERT       => 'i',
     OF_HIGH_COLOR   => 'I',
     OF_USE_MACRO    => 'u',
-    OF_MACRO_NUMBER => 'n'
+    OF_MACRO_NUMBER => 'n',
     OF_COMPLEXION_SCORE => 'C',
     OF_DIFFUSION => 'd',
     OF_FIND_LARGEST => 'f',
