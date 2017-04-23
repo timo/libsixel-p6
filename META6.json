@@ -1,0 +1,46 @@
+{
+  "name": "Image::Sixel",
+  "source-url": "git://github.com/timo/libsixel-p6.git",
+  "support": {
+    "source": null
+  },
+  "emulates": {
+    
+  },
+  "perl": "6",
+  "resources": [
+    
+  ],
+  "build-depends": [
+    
+  ],
+  "auth": null,
+  "excludes": {
+    
+  },
+  "superseded-by": {
+    
+  },
+  "depends": [
+    
+  ],
+  "tags": [
+    
+  ],
+  "license": "Artistic-2.0",
+  "test-depends": [
+    
+  ],
+  "provides": {
+    "Image::Sixel": "lib/Image/Sixel.pm6"
+  },
+  "version": "0.0.1",
+  "supersedes": {
+    
+  },
+  "authors": [
+    "Timo Paulssen"
+  ],
+  "description": "Binding for libsixel",
+  "meta6": "0"
+}
