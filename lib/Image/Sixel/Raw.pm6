@@ -40,7 +40,7 @@ constant SIXEL_NOT_IMPLEMENTED   = (SIXEL_FEATURE_ERROR +| 0x0001);  # feature n
 sub SIXEL_SUCCEEDED($status) is export { (($status) +& 0x1000) == 0 }
 sub SIXEL_FAILED($status)    is export { (($status) +& 0x1000) != 0 }
 
-enum optionFLag is export (
+enum optionFlag is export (
     OF_INPUT  => 'i',
     OF_OUTPUT => 'o',
     OF_7BIT_MODE => '7',
