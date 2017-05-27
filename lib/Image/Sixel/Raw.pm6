@@ -267,12 +267,11 @@ sub sixel_allocator_free(sixel_allocator               $allocator # Typedef<sixe
 #/* create new output context object */
 #SIXELAPI SIXELSTATUS
 #sixel_output_new(
-sub sixel_output_new(sixel_output         $output # Typedef<sixel_output_t>->|sixel_output|**
-                    ,&fn_write ( --> int32) # Typedef<sixel_write_function>->|F:int ( )*|
+sub sixel_output_new(sixel_output         $output is rw # Typedef<sixel_output_t>->|sixel_output|**
+                    ,&fn_write ( CArray[uint8], int32, Pointer --> int32) # Typedef<sixel_write_function>->|F:int ( )*|
                     ,Pointer                       $priv # void*
                     ,sixel_allocator               $allocator # Typedef<sixel_allocator_t>->|sixel_allocator|*
                      ) is native(LIB) returns SIXELSTATUS is export { * }
-
 
 #-From /home/timo/perl6/ecosystem/libsixel/include/sixel.h:580
 #                                               3rd argument of fn_write */
@@ -355,7 +354,7 @@ sub sixel_output_set_encode_policy(sixel_output                  $output # Typed
 #/* create dither context object */
 #SIXELAPI SIXELSTATUS
 #sixel_dither_new(
-sub sixel_dither_new(sixel_dither         $ppdither # Typedef<sixel_dither_t>->|sixel_dither|**
+sub sixel_dither_new(sixel_dither         $ppdither is rw # Typedef<sixel_dither_t>->|sixel_dither|**
                     ,int32                         $ncolors # int
                     ,sixel_allocator               $allocator # Typedef<sixel_allocator_t>->|sixel_allocator|*
                      ) is native(LIB) returns SIXELSTATUS is export { * }
@@ -485,7 +484,7 @@ sub sixel_dither_set_transparent(sixel_dither                  $dither # Typedef
 #/* convert pixels into sixel format and write it to output context */
 #SIXELAPI SIXELSTATUS
 #sixel_encode(
-sub sixel_encode(Pointer[uint8]                $pixels # unsigned char*
+sub sixel_encode(CArray[uint8]                 $pixels # unsigned char*
                 ,int32                         $width # int
                 ,int32                         $height # int
                 ,int32                         $depth # int
@@ -497,16 +496,15 @@ sub sixel_encode(Pointer[uint8]                $pixels # unsigned char*
 #/* convert sixel data into indexed pixel bytes and palette data */
 #SIXELAPI SIXELSTATUS
 #sixel_decode_raw(
-sub sixel_decode_raw(Pointer[uint8]                $p # unsigned char*
+sub sixel_decode_raw(CArray[uint8]                 $p # unsigned char*
                     ,int32                         $len # int
-                    ,Pointer[Pointer[uint8]]       $pixels # unsigned char**
-                    ,Pointer[int32]                $pwidth # int*
-                    ,Pointer[int32]                $pheight # int*
-                    ,Pointer[Pointer[uint8]]       $palette # unsigned char**
-                    ,Pointer[int32]                $ncolors # int*
+                    ,CArray[uint8]                 $pixels is rw # unsigned char**
+                    ,int32                         $pwidth is rw # int*
+                    ,int32                         $pheight is rw # int*
+                    ,CArray[uint8]                 $palette is rw # unsigned char**
+                    ,int32                         $ncolors is rw # int*
                     ,sixel_allocator               $allocator # Typedef<sixel_allocator_t>->|sixel_allocator|*
                      ) is native(LIB) returns SIXELSTATUS is export { * }
-
 
 #-From /home/timo/perl6/ecosystem/libsixel/include/sixel.h:809
 #SIXELAPI void
@@ -550,8 +548,8 @@ sub sixel_helper_normalize_pixelformat(Pointer[uint8]                $dst # unsi
 #/* scale image to specified size */
 #SIXELAPI SIXELSTATUS
 #sixel_helper_scale_image(
-sub sixel_helper_scale_image(Pointer[uint8]                $dst # unsigned char*
-                            ,Pointer[uint8]                $src # const unsigned char*
+sub sixel_helper_scale_image(CArray[uint8]                 $dst # unsigned char*
+                            ,CArray[uint8]                 $src # const unsigned char*
                             ,int32                         $srcw # int
                             ,int32                         $srch # int
                             ,int32                         $pixelformat # int
@@ -591,11 +589,11 @@ sub sixel_frame_unref(sixel_frame $frame # Typedef<sixel_frame_t>->|sixel_frame|
 #SIXELAPI SIXELSTATUS
 #sixel_frame_init(
 sub sixel_frame_init(sixel_frame                   $frame # Typedef<sixel_frame_t>->|sixel_frame|*
-                    ,Pointer[uint8]                $pixels # unsigned char*
+                    ,CArray[uint8]                 $pixels # unsigned char*
                     ,int32                         $width # int
                     ,int32                         $height # int
                     ,int32                         $pixelformat # int
-                    ,Pointer[uint8]                $palette # unsigned char*
+                    ,CArray[uint8]                 $palette # unsigned char*
                     ,int32                         $ncolors # int
                      ) is native(LIB) returns SIXELSTATUS is export { * }
 
@@ -604,14 +602,14 @@ sub sixel_frame_init(sixel_frame                   $frame # Typedef<sixel_frame_
 #SIXELAPI unsigned char *
 #sixel_frame_get_pixels(sixel_frame_t /* in */ *frame);  /* frame object */
 sub sixel_frame_get_pixels(sixel_frame $frame # Typedef<sixel_frame_t>->|sixel_frame|*
-                           ) is native(LIB) returns Pointer[uint8] is export { * }
+                           ) is native(LIB) returns CArray[uint8] is export { * }
 
 #-From /home/timo/perl6/ecosystem/libsixel/include/sixel.h:928
 #/* get palette */
 #SIXELAPI unsigned char *
 #sixel_frame_get_palette(sixel_frame_t /* in */ *frame);  /* frame object */
 sub sixel_frame_get_palette(sixel_frame $frame # Typedef<sixel_frame_t>->|sixel_frame|*
-                            ) is native(LIB) returns Pointer[uint8] is export { * }
+                            ) is native(LIB) returns CArray[uint8] is export { * }
 
 #-From /home/timo/perl6/ecosystem/libsixel/include/sixel.h:932
 #/* get width */
@@ -739,8 +737,8 @@ sub sixel_helper_write_image_file(Pointer[uint8]                $data # unsigned
 #/* create encoder object */
 #SIXELAPI SIXELSTATUS
 #sixel_encoder_new(
-sub sixel_encoder_new(sixel_encoder        $ppencoder # Typedef<sixel_encoder_t>->|sixel_encoder|**
-                     ,sixel_allocator               $allocator # Typedef<sixel_allocator_t>->|sixel_allocator|*
+sub sixel_encoder_new(sixel_encoder     $ppencoder is rw # Typedef<sixel_encoder_t>->|sixel_encoder|**
+                     ,sixel_allocator   $allocator # Typedef<sixel_allocator_t>->|sixel_allocator|*
                       ) is native(LIB) returns SIXELSTATUS is export { * }
 
 #-From /home/timo/perl6/ecosystem/libsixel/include/sixel.h:1047
@@ -788,11 +786,11 @@ sub sixel_encoder_encode(sixel_encoder                 $encoder # Typedef<sixel_
 #SIXELAPI SIXELSTATUS
 #sixel_encoder_encode_bytes(
 sub sixel_encoder_encode_bytes(sixel_encoder                 $encoder # Typedef<sixel_encoder_t>->|sixel_encoder|*
-                              ,Pointer[uint8]                $bytes # unsigned char*
+                              ,CArray[uint8]                 $bytes # unsigned char*
                               ,int32                         $width # int
                               ,int32                         $height # int
                               ,int32                         $pixelformat # int
-                              ,Pointer[uint8]                $palette # unsigned char*
+                              ,CArray[uint8]                 $palette # unsigned char*
                               ,int32                         $ncolors # int
                                ) is native(LIB) returns SIXELSTATUS is export { * }
 
@@ -800,10 +798,9 @@ sub sixel_encoder_encode_bytes(sixel_encoder                 $encoder # Typedef<
 #/* create decoder object */
 #SIXELAPI SIXELSTATUS
 #sixel_decoder_new(
-sub sixel_decoder_new(sixel_decoder        $ppdecoder # Typedef<sixel_decoder_t>->|sixel_decoder|**
+sub sixel_decoder_new(sixel_decoder              $ppdecoder is rw # Typedef<sixel_decoder_t>->|sixel_decoder|**
                      ,sixel_allocator               $allocator # Typedef<sixel_allocator_t>->|sixel_allocator|*
                       ) is native(LIB) returns SIXELSTATUS is export { * }
-
 
 #-From /home/timo/perl6/ecosystem/libsixel/include/sixel.h:1112
 #/* increase reference count of decoder object (thread-unsafe) */
